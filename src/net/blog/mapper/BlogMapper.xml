@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	 <mapper namespace="net.blog.mapper.BlogMapper" >
+		 <select id="findBlog" parameterType="java.lang.String" resultType="net.blog.bean.Blog">
+	   		SELECT * FROM BLOG ORDER BY publishDateTime DESC	
+		 </select>
+		 <insert id="addBlog" parameterType="net.blog.bean.Blog">
+		 	INSERT INTO BLOG VALUES(#{blogid},#{title},#{author},#{type},#{publishDateTime},#{picture},#{descriptor},#{content},#{isDisplay},#{readCount},#{userid});
+		 </insert> 
+		  <select id="deleteBlogById" parameterType="String" resultType="net.blog.bean.Blog">
+	   		DELETE from BLOG where blogid= #{blogid}
+		 </select>
+		 <select id="findBlogById" parameterType="java.lang.String" resultType="net.blog.bean.Blog">
+	   		SELECT * FROM BLOG WHERE userid =#{userid}
+		 </select>
+		 <select id="findBlogByBlogId" parameterType="java.lang.String" resultType="net.blog.bean.Blog">
+	   		SELECT * FROM BLOG WHERE blogid =#{blogid}
+		 </select>
+		 <select id="rankBlog" parameterType="java.lang.String" resultType="net.blog.bean.Blog">
+	   		SELECT * FROM BLOG order by readCount desc limit 0,3
+		 </select>
+		 <update id="updateBlogreadcount" parameterType="java.lang.String" >
+		 UPDATE BLOG set readcount=readcount+1 WHERE blogid=#{blogid}
+		 </update>
+		 
+		 <update id="updateBlog" parameterType="java.lang.String" >
+		update BLOG set title=#{title},author=#{author},type=#{type},picture=#{picture},descriptor=#{descriptor},content=#{content}where blogid=#{blogid}
+		 </update>
+		 
+		 
+	 </mapper>
